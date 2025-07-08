@@ -925,6 +925,7 @@ function loadMuseumModel() {
         createHomeButton();
         createExhibitHotspots();
         createPictureHotspots();
+        initControls();
         
         
     
