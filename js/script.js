@@ -287,11 +287,6 @@ function setupTouchControls() {
 
                  renderer.antialias = false;
                  renderer.shadowMap.enabled = false;
-                
-                // Show controls after loading
-                document.querySelector('.loading-screen').addEventListener('transitionend', () => {
-                    document.getElementById('touch-controls').style.display = 'flex';
-                });
             } else {
                 setupMouseLock();
                 setupKeyboardControls();
