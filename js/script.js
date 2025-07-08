@@ -881,37 +881,58 @@ const loadingManager = new THREE.LoadingManager(
         updateLoadingProgress(loaded / total);
     }
 );
-
-// Load HDR
-new RGBELoader()
-    .setPath('https://storage.googleapis.com/pearl-artifacts-cdn/museum_model/')
-    .load('environment.hdr', function (texture) {
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-        scene.background = texture;
-        scene.environment = texture;
-                        
-        const loader = new GLTFLoader(loadingManager);
-        loader.load('https://storage.googleapis.com/pearl-artifacts-cdn/museum_model/museum_test_1blend.gltf', (gltf) => {
-            const model = gltf.scene;
-            model.position.set(0, 0, 0);
-            model.scale.set(2, 2, 2);
-            scene.add(model);
-
-            createExhibitHotspots();
-            createPictureHotspots();
+// Loading the HDR environment map and museum model
+if (!isMobile) {
+    new RGBELoader()
+        .setPath('https://storage.googleapis.com/pearl-artifacts-cdn/museum_model/')
+        .load('environment.hdr', function (texture) {
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+            scene.background = texture;
+            scene.environment = texture;
             
-            // Setup controls after everything is loaded
-            setupMouseLock();
-            setupKeyboardControls();
-            initControls();
+            // Load museum model after environment is set
+            const loader = new GLTFLoader(loadingManager);
+            loader.load('https://storage.googleapis.com/pearl-artifacts-cdn/museum_model/museum_test_1blend.gltf', (gltf) => {
+                const model = gltf.scene;
+                model.position.set(0, 0, 0);
+                model.scale.set(2, 2, 2);
+                scene.add(model);
 
-             },
-    undefined, // Progress callback
-    (error) => {
-        console.error('Error loading museum model:', error);
-
+                createExhibitHotspots();
+                createPictureHotspots();
+                
+            }, undefined, (error) => {
+                console.error('Error loading museum model:', error);
+            });
+        }, undefined, (error) => {
+            console.error('Error loading HDR environment:', error);
+            // Even if HDR fails, still load the museum model
+            loadMuseumModel();
         });
+} else {
+    // On mobile, just load the museum model without environment texture
+    loadMuseumModel();
+}
+
+function loadMuseumModel() {
+    const loader = new GLTFLoader(loadingManager);
+    loader.load('https://storage.googleapis.com/pearl-artifacts-cdn/museum_model/museum_test_1blend.gltf', (gltf) => {
+        const model = gltf.scene;
+        model.position.set(0, 0, 0);
+        model.scale.set(2, 2, 2);
+        scene.add(model);
+
+        createHomeButton();
+        createExhibitHotspots();
+        createPictureHotspots();
+        
+        
+    
+    }, undefined, (error) => {
+        console.error('Error loading museum model:', error);
     });
+}
+
 
     //instruction button
 function createInstructionButton() {
