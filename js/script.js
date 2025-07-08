@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { gsap } from 'gsap';
+//import { gsap } from 'gsap';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
 
 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         
@@ -286,17 +287,6 @@ function setupTouchControls() {
 
                  renderer.antialias = false;
                  renderer.shadowMap.enabled = false;
-                
-                // Show fullscreen button on mobile
-                const fsButton = document.getElementById('fullscreen-button');
-                fsButton.style.display = 'block';
-                fsButton.addEventListener('click', () => {
-                    if (document.documentElement.requestFullscreen) {
-                        document.documentElement.requestFullscreen();
-                    } else if (document.documentElement.webkitRequestFullscreen) {
-                        document.documentElement.webkitRequestFullscreen();
-                    }
-                });
                 
                 // Show controls after loading
                 document.querySelector('.loading-screen').addEventListener('transitionend', () => {
