@@ -923,10 +923,10 @@ function loadMuseumModel() {
         model.scale.set(2, 2, 2);
         scene.add(model);
 
-        createHomeButton();
+        
         createExhibitHotspots();
         createPictureHotspots();
-        initControls();
+        
         
         
     
@@ -1026,6 +1026,7 @@ const animate = () => {
 animate();
 
 document.addEventListener('DOMContentLoaded', function() {
+    initControls();
     createHomeButton();
     createInstructionButton();
 });
