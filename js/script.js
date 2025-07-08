@@ -1002,6 +1002,9 @@ function createInstructionButton() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    
+    initControls();
+    console.log('Setting up touch controls');
     createHomeButton();
     createInstructionButton(); 
 });
@@ -1025,8 +1028,3 @@ const animate = () => {
 
 animate();
 
-document.addEventListener('DOMContentLoaded', function() {
-    initControls();
-    createHomeButton();
-    createInstructionButton();
-});
