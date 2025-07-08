@@ -13,9 +13,9 @@ const scene = new THREE.Scene();
 
 let touchControls;
 
-// Loading progress tracking
-let modelsLoaded = 0;
-const totalModels = 1; // Update this if you load more models
+// // Loading progress tracking
+// let modelsLoaded = 0;
+// const totalModels = 1; // Update this if you load more models
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -161,7 +161,7 @@ function setupTouchControls() {
     touchControls.style.transform = 'translateX(-50%)';
     touchControls.style.width = '150px';
     touchControls.style.height = '150px';
-    touchControls.style.display = 'none'; // Start hidden
+    touchControls.style.display = 'block'; 
     touchControls.style.pointerEvents = 'none';
     touchControls.style.zIndex = '1000';
     document.body.appendChild(touchControls);
@@ -275,14 +275,15 @@ function setupTouchControls() {
     }
 
     // Show controls after loading
-    document.querySelector('.loading-screen').addEventListener('transitionend', () => {
-        touchControls.style.display = 'block';
-    });
+    // document.querySelector('.loading-screen').addEventListener('transitionend', () => {
+    //     touchControls.style.display = 'block';
+    // });
 }
 
         // Modify your initialization
         function initControls() {
             if (isMobile) {
+                console.log('Setting up touch controls');
                 setupTouchControls();
 
                  renderer.antialias = false;
